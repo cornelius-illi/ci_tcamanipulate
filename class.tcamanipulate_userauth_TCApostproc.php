@@ -24,10 +24,8 @@
 /**
 * Class with methods called as hooks from TCE Forms
 *
-* @author Stig Nørgaard Færch <stig@altforintet.dk>
+* @author Cornelius Illi <mail@corneliusilli.de>
 */
-
-require_once(PATH_t3lib.'class.t3lib_befunc.php');
 
 class user_tcamanipulate_userauth_TCApostproc {
 
@@ -37,9 +35,9 @@ class user_tcamanipulate_userauth_TCApostproc {
 	function processTCAtitles(&$params, &$reference) {
 		global $TCA;
 		if (is_object($GLOBALS['BE_USER']) && $TCA) {
-			$pageid=t3lib_div::_GP('id');
+			$pageid= \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
 			if (!$pageid) {
-				$editconf = t3lib_div::_GP('edit');
+				$editconf = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('edit');
 				//IF TCEFORM
 				if (is_array($editconf))	{
 					foreach($editconf as $table=>$uidvalue){
@@ -49,14 +47,14 @@ class user_tcamanipulate_userauth_TCApostproc {
 							//Doesn't seem to be necessary:
 							//elseif((current($uidvalue)=='new' AND key($uidvalue)<0) OR current($uidvalue)=='edit')
 							} else {
-								$recordArr = t3lib_BEfunc::getRecord($table,intval(abs(key($uidvalue))),'pid');
+								$recordArr = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord($table,intval(abs(key($uidvalue))),'pid');
 								$pageid = $recordArr['pid'];
 							}
 						}
 					}
 				} else {
 					//IF IRRE
-					$ajax = t3lib_div::_GP('ajax');
+					$ajax = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('ajax');
 					if (is_array($ajax)) {
 						ereg('^data\[([0-9]+)\]',$ajax[1],$matches);
 						$pageid = $matches[1];
@@ -64,7 +62,7 @@ class user_tcamanipulate_userauth_TCApostproc {
 				}
 			}
 			if(intval($pageid)) {
-				$includeLibs=t3lib_BEfunc::getModTSconfig($pageid,'tx_tcamanipulate.includeLibs'); //Gets the TSconfig
+				$includeLibs= \TYPO3\CMS\Backend\Utility\BackendUtility::getModTSconfig($pageid,'tx_tcamanipulate.includeLibs'); //Gets the TSconfig
 				if (is_array($includeLibs['properties'])) {
 					foreach($includeLibs['properties'] as $libkey=>$libpath) {
 						$filepath=t3lib_div::getFileAbsFileName($libpath);
@@ -72,7 +70,7 @@ class user_tcamanipulate_userauth_TCApostproc {
 					}
 				}
 				
-				$modTSconfig=t3lib_BEfunc::getModTSconfig($pageid,'TCA'); //Gets the TSconfig
+				$modTSconfig= \TYPO3\CMS\Backend\Utility\BackendUtility::getModTSconfig($pageid,'TCA'); //Gets the TSconfig
 				if (is_array($modTSconfig)) {
 					if (isset($modTSconfig['properties'])) {
 						unset($modTSconfig['properties']['includeLibs'],$modTSconfig['properties']['renameFields']);
@@ -81,10 +79,10 @@ class user_tcamanipulate_userauth_TCApostproc {
 					if (is_array($newTCA)) {
 						foreach($newTCA as $table=>$value){
 							if (!is_array($modTSconfig[$table]['columns']) OR !is_array($modTSconfig[$table])) {
-								t3lib_div::loadTCA($table);
+								\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA($table);
 							}
 						}
-						$GLOBALS['TCA']=t3lib_div::array_merge_recursive_overrule($GLOBALS['TCA'],(is_array($newTCA)?$newTCA:array()));
+						$GLOBALS['TCA']= \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($GLOBALS['TCA'],(is_array($newTCA)?$newTCA:array()));
 					}
 				}
 			}
@@ -101,9 +99,4 @@ class user_tcamanipulate_userauth_TCApostproc {
 		return $new_arr;
 	}
 }
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tcamanipulate/class.tcamanipulate_userauth_TCApostproc.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tcamanipulate/class.tcamanipulate_userauth_TCApostproc.php']);
-}
-
 ?>

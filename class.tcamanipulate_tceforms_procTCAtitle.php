@@ -24,10 +24,8 @@
 /**
 * Class with methods called as hooks from TCE Forms
 *
-* @author Stig Nørgaard Færch <stig@altforintet.dk>
+* @author Cornelius Illi <mail@corneliusilli.de>
 */
-
-require_once(PATH_t3lib.'class.t3lib_befunc.php');
 
 class user_tcamanipulate_tceforms_procTCAtitle {
 
@@ -40,7 +38,7 @@ class user_tcamanipulate_tceforms_procTCAtitle {
 	function getMainFields_preProcess($tablename, $table, $id) {
 		global $TCA;
 		if (is_object($GLOBALS['BE_USER']) && $TCA) {
-			$modTSconfig=t3lib_BEfunc::getModTSconfig($table['pid'],'tx_tcamanipulate.renameFields'); //Gets the TSconfig
+			$modTSconfig=	\TYPO3\CMS\Backend\Utility\BackendUtility::getModTSconfig($table['pid'],'tx_tcamanipulate.renameFields'); //Gets the TSconfig
 			//Rename many fields
 			if(isset($modTSconfig['properties'][$tablename])) {
 				foreach($TCA[$tablename]['columns'] as $fieldname=>$fieldarray){
@@ -50,9 +48,4 @@ class user_tcamanipulate_tceforms_procTCAtitle {
 		}
 	}
 }
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tcamanipulate/class.tcamanipulate_tceforms_procTCAtitle.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tcamanipulate/class.tcamanipulate_tceforms_procTCAtitle.php']);
-}
-
 ?>
