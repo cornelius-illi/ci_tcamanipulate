@@ -10,42 +10,40 @@
  * writing. "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array (
-	'title' => 'TCA manipulation via PageTS',
-	'description' => 'With this extension you can manipulate the TCA on page basis via PageTS.',
-	'category' => 'be',
-	'shy' => 0,
-	'version' => '0.2.0',
-	'dependencies' => '',
-	'conflicts' => '',
-	'priority' => '',
-	'loadOrder' => '',
-	'module' => '',
-	'state' => 'beta',
-	'uploadfolder' => 0,
-	'createDirs' => '',
-	'modify_tables' => '',
-	'clearcacheonload' => 0,
-	'lockType' => '',
-	'author' => 'Cornelius Illi, Stig Nørgaard Færch',
-	'author_email' => 'mail@corneliusilli.de, stig@8620.dk',
-	'author_company' => '',
-	'CGLcompliance' => NULL,
-	'CGLcompliance_note' => NULL,
-	'constraints' => 
-	array (
-		'depends' => 
-		array (
-			'typo3' => '4.1.3-6.2.99',
-			'' => '',
-		),
-		'conflicts' => 
-		array (
-		),
-		'suggests' => 
-		array (
-		),
-	),
-);
-
-?>
+$EM_CONF[$_EXTKEY] = [
+    'title' => 'TCA manipulation via PageTS',
+    'description' => 'With this extension you can manipulate the TCA on page basis via PageTS.',
+    'category' => 'be',
+    'shy' => 0,
+    'version' => '7.0.0',
+    'dependencies' => '',
+    'conflicts' => '',
+    'priority' => '',
+    'loadOrder' => '',
+    'module' => '',
+    'state' => 'beta',
+    'uploadfolder' => 0,
+    'createDirs' => '',
+    'modify_tables' => '',
+    'clearcacheonload' => 0,
+    'lockType' => '',
+    'author' => 'Cornelius Illi, Stig Nørgaard Færch, Markus Stauffiger',
+    'author_email' => 'mail@corneliusilli.de, stig@8620.dk, markus@4eyes.ch',
+    'author_company' => '',
+    'CGLcompliance' => null,
+    'CGLcompliance_note' => null,
+    'constraints' =>
+        [
+            'depends' =>
+                [
+                    'php' => '5.4.0-0.0.0',
+                    'typo3' => '7.0.0-7.99.99'
+                ],
+            'conflicts' =>
+                [
+                ],
+            'suggests' =>
+                [
+                ],
+        ],
+];
