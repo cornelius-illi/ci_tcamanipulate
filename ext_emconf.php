@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = [
     'description' => 'With this extension you can manipulate the TCA on page basis via PageTS.',
     'category' => 'be',
     'shy' => 0,
-    'version' => '0.2.1',
+    'version' => '7.0.0',
     'dependencies' => '',
     'conflicts' => '',
     'priority' => '',
@@ -27,8 +27,8 @@ $EM_CONF[$_EXTKEY] = [
     'modify_tables' => '',
     'clearcacheonload' => 0,
     'lockType' => '',
-    'author' => 'Cornelius Illi, Stig Nørgaard Færch',
-    'author_email' => 'mail@corneliusilli.de, stig@8620.dk',
+    'author' => 'Cornelius Illi, Stig Nørgaard Færch, Markus Stauffiger',
+    'author_email' => 'mail@corneliusilli.de, stig@8620.dk, markus@4eyes.ch',
     'author_company' => '',
     'CGLcompliance' => null,
     'CGLcompliance_note' => null,
@@ -37,7 +37,7 @@ $EM_CONF[$_EXTKEY] = [
             'depends' =>
                 [
                     'php' => '5.4.0-0.0.0',
-                    'typo3' => '4.1.3-6.2.99'
+                    'typo3' => '7.0.0-7.99.99'
                 ],
             'conflicts' =>
                 [

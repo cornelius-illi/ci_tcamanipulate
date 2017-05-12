@@ -59,7 +59,7 @@ class user_tcamanipulate_userauth_TCApostproc
                     //IF IRRE
                     $ajax = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('ajax');
                     if (is_array($ajax)) {
-                        ereg('^data\[([0-9]+)\]', $ajax[1], $matches);
+                        preg_match('/^data\[([0-9]+)\]/', $ajax[1], $matches);
                         $pageid = $matches[1];
                     }
                 }
@@ -69,7 +69,7 @@ class user_tcamanipulate_userauth_TCApostproc
                     'tx_tcamanipulate.includeLibs'); //Gets the TSconfig
                 if (is_array($includeLibs['properties'])) {
                     foreach ($includeLibs['properties'] as $libkey => $libpath) {
-                        $filepath = t3lib_div::getFileAbsFileName($libpath);
+                        $filepath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($libpath);
                         if (is_file($filepath)) {
                             include_once($filepath);
                         }
@@ -84,13 +84,10 @@ class user_tcamanipulate_userauth_TCApostproc
                         $newTCA = $this->cleanKeys($modTSconfig['properties']);
                     }
                     if (is_array($newTCA)) {
-                        foreach ($newTCA as $table => $value) {
-                            if (!is_array($modTSconfig[$table]['columns']) OR !is_array($modTSconfig[$table])) {
-                                \TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA($table);
-                            }
-                        }
-                        $GLOBALS['TCA'] = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($GLOBALS['TCA'],
-                            (is_array($newTCA) ? $newTCA : []));
+                        \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule(
+                            $GLOBALS['TCA'],
+                            (is_array($newTCA) ? $newTCA : [])
+                        );
                     }
                 }
             }
